@@ -12,18 +12,20 @@ function GoodsOnPage() {
     (state) => state.categories.activeCategory
   );
   const { goodsList, loading } = useSelector((state) => state.goods);
-  const cartList = useSelector((state) => state.cart.cart).map(
-    (item) => item.id
-  );
-  const compareList = useSelector((state) => state.compare.compareList).map(
-    (item) => item.id
-  );
-
+  const cartArray = useSelector((state) => state.cart.cart);
+  const cartList = cartArray.map((item) => item.id);
+  const compareArray = useSelector((state) => state.compare.compareList);
+  const compareList = compareArray.map((item) => item.id);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartArray));
+    localStorage.setItem("compare", JSON.stringify(compareArray));
+  }, [cartArray, compareArray]);
   useEffect(() => {
     if (activeCategory) {
       dispacth(fetchGoods(activeCategory));
     }
   }, [activeCategory]);
+
   function handleAddToCart(goods) {
     dispacth(addToCart({ ...goods, count: 1 }));
   }
