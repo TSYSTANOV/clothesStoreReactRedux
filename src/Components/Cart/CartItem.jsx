@@ -6,15 +6,18 @@ function CartItem(props) {
       </td>
       <td className="modal-cart-item-title">{props.goods.title}</td>
       <td className="modal-cart-item-price">{props.goods.price} USD</td>
-      <td className="modal-cart-btns">
-        <span className="numbers">-</span>
-        <p data-count-incart="${product.id}" className="modal-cart-item-count">
+      <td className="modal-cart-btns" data-item-id={props.goods.id}>
+        <span className="numbers minus">-</span>
+        <p className="modal-cart-item-count">
           {props.goods.count}
         </p>
-        <span className="numbers">+</span>
+        <span className="numbers plus">+</span>
       </td>
-      <td data-summary-price-id="${product.id}">
-        Summary:<p> {props.goods.price * props.goods.count}</p>USD
+      <td>
+        Summary:<p> {(props.goods.price * props.goods.count).toFixed(2)}</p>USD
+      </td>
+      <td data-item-id={props.goods.id}>
+        <button className="delete">X</button>
       </td>
     </tr>
   );

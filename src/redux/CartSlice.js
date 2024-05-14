@@ -12,9 +12,29 @@ const CartSlice = createSlice({
     },
     toggleCart: (state) => {
       state.isOpen = !state.isOpen;
-      console.log(state.isOpen);
+    },
+    increaseCount:(state,action)=>{
+      state.cart = state.cart.map((item)=>{
+          if(item.id === action.payload){
+            item.count++
+            return item
+          }
+          return item
+      })
+    },
+    decreaseCount:(state,action)=>{
+      state.cart = state.cart.map((item)=>{
+          if(item.id === action.payload){
+            item.count--
+            return item
+          }
+          return item
+      }).filter((item)=> item.count !== 0)
+    },
+    deleteItem:(state,action)=>{
+      state.cart = state.cart.filter((item)=>item.id !== action.payload)
     },
   },
 });
-export const { addToCart, toggleCart } = CartSlice.actions;
+export const { addToCart, toggleCart, increaseCount, decreaseCount, deleteItem } = CartSlice.actions;
 export default CartSlice.reducer;

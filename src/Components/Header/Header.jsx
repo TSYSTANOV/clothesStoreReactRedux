@@ -3,6 +3,7 @@ import { CategoryList } from "./CategoryList";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories, setActiveCategory } from "../../redux/CategorySlice";
 import { HeaderCartBtn } from "./HeaderCartBtn";
+import { toggleCompare } from "../../redux/CompareSlice";
 function Header() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categories.categoryList);
@@ -52,7 +53,9 @@ function Header() {
       <button
         className="category-btn btnToCompare"
         data-cat-name="compare"
-        data-products-length="0"
+        onClick={()=>{
+          dispatch(toggleCompare())
+        }}
       >
         Compare
       </button>
